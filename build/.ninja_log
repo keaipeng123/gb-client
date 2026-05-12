@@ -1,0 +1,14 @@
+# ninja log v7
+9	309	1778209886722199000	HelloQt_autogen/timestamp	1a9984935cd0a701
+9	309	1778209886722199000	HelloQt_autogen/mocs_compilation.cpp	1a9984935cd0a701
+9	309	1778209886722199000	/Users/sxr/Projects/gb-client/build/HelloQt_autogen/timestamp	1a9984935cd0a701
+9	309	1778209886722199000	/Users/sxr/Projects/gb-client/build/HelloQt_autogen/mocs_compilation.cpp	1a9984935cd0a701
+309	1409	1778209886732017347	CMakeFiles/HelloQt.dir/HelloQt_autogen/mocs_compilation.cpp.o	3686fef1dc0ac912
+649	2019	1778209662214996403	CMakeFiles/HelloQt.dir/main.cpp.o	2d2e3d7f8512ae21
+1543	1729	1778209887965816986	HelloQt	1a0675a67ad5389f
+309	1393	1778209886732225972	CMakeFiles/HelloQt.dir/mainwindow.cpp.o	3ce8abfe56b30af0
+309	1485	1778209886732340723	CMakeFiles/HelloQt.dir/entrypage.cpp.o	bd8aaddde27b3991
+310	1543	1778209886732449390	CMakeFiles/HelloQt.dir/catalogpage.cpp.o	a120419d8296b1ed
+13	319	1778573666731316749	build.ninja	1dc45f403ed24aac
+13	319	1778573666729046366	/Users/sxr/Projects/gb-client/build/cmake_install.cmake	1dc45f403ed24aac
+650	1750	1778209662215486655	CMakeFiles/HelloQt.dir/tcpclient.cpp.o	1911cb27a41a32c1

@@ -1,0 +1,38 @@
+[
+{
+  "directory": "/Users/sxr/Projects/gb-client/build",
+  "command": "/usr/bin/clang++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB -I/Users/sxr/Projects/gb-client/build/HelloQt_autogen/include -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtCore.framework/Headers -iframework /Users/sxr/Qt/6.11.0/macos/lib -isystem /Users/sxr/Qt/6.11.0/macos/mkspecs/macx-clang -isystem /Users/sxr/Qt/6.11.0/macos/include -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtGui.framework/Headers -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtNetwork.framework/Headers -isystem /opt/homebrew/include -isystem /opt/homebrew/Cellar/ffmpeg/8.1.1/include -isystem /opt/homebrew/include/SDL2 -g -std=gnu++17 -arch arm64 -D_THREAD_SAFE -o CMakeFiles/HelloQt.dir/HelloQt_autogen/mocs_compilation.cpp.o -c /Users/sxr/Projects/gb-client/build/HelloQt_autogen/mocs_compilation.cpp",
+  "file": "/Users/sxr/Projects/gb-client/build/HelloQt_autogen/mocs_compilation.cpp",
+  "output": "/Users/sxr/Projects/gb-client/build/CMakeFiles/HelloQt.dir/HelloQt_autogen/mocs_compilation.cpp.o"
+},
+{
+  "directory": "/Users/sxr/Projects/gb-client/build",
+  "command": "/usr/bin/clang++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB -I/Users/sxr/Projects/gb-client/build/HelloQt_autogen/include -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtCore.framework/Headers -iframework /Users/sxr/Qt/6.11.0/macos/lib -isystem /Users/sxr/Qt/6.11.0/macos/mkspecs/macx-clang -isystem /Users/sxr/Qt/6.11.0/macos/include -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtGui.framework/Headers -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtNetwork.framework/Headers -isystem /opt/homebrew/include -isystem /opt/homebrew/Cellar/ffmpeg/8.1.1/include -isystem /opt/homebrew/include/SDL2 -g -std=gnu++17 -arch arm64 -D_THREAD_SAFE -o CMakeFiles/HelloQt.dir/main.cpp.o -c /Users/sxr/Projects/gb-client/main.cpp",
+  "file": "/Users/sxr/Projects/gb-client/main.cpp",
+  "output": "/Users/sxr/Projects/gb-client/build/CMakeFiles/HelloQt.dir/main.cpp.o"
+},
+{
+  "directory": "/Users/sxr/Projects/gb-client/build",
+  "command": "/usr/bin/clang++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB -I/Users/sxr/Projects/gb-client/build/HelloQt_autogen/include -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtCore.framework/Headers -iframework /Users/sxr/Qt/6.11.0/macos/lib -isystem /Users/sxr/Qt/6.11.0/macos/mkspecs/macx-clang -isystem /Users/sxr/Qt/6.11.0/macos/include -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtGui.framework/Headers -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtNetwork.framework/Headers -isystem /opt/homebrew/include -isystem /opt/homebrew/Cellar/ffmpeg/8.1.1/include -isystem /opt/homebrew/include/SDL2 -g -std=gnu++17 -arch arm64 -D_THREAD_SAFE -o CMakeFiles/HelloQt.dir/mainwindow.cpp.o -c /Users/sxr/Projects/gb-client/mainwindow.cpp",
+  "file": "/Users/sxr/Projects/gb-client/mainwindow.cpp",
+  "output": "/Users/sxr/Projects/gb-client/build/CMakeFiles/HelloQt.dir/mainwindow.cpp.o"
+},
+{
+  "directory": "/Users/sxr/Projects/gb-client/build",
+  "command": "/usr/bin/clang++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB -I/Users/sxr/Projects/gb-client/build/HelloQt_autogen/include -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtCore.framework/Headers -iframework /Users/sxr/Qt/6.11.0/macos/lib -isystem /Users/sxr/Qt/6.11.0/macos/mkspecs/macx-clang -isystem /Users/sxr/Qt/6.11.0/macos/include -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtGui.framework/Headers -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtNetwork.framework/Headers -isystem /opt/homebrew/include -isystem /opt/homebrew/Cellar/ffmpeg/8.1.1/include -isystem /opt/homebrew/include/SDL2 -g -std=gnu++17 -arch arm64 -D_THREAD_SAFE -o CMakeFiles/HelloQt.dir/entrypage.cpp.o -c /Users/sxr/Projects/gb-client/entrypage.cpp",
+  "file": "/Users/sxr/Projects/gb-client/entrypage.cpp",
+  "output": "/Users/sxr/Projects/gb-client/build/CMakeFiles/HelloQt.dir/entrypage.cpp.o"
+},
+{
+  "directory": "/Users/sxr/Projects/gb-client/build",
+  "command": "/usr/bin/clang++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB -I/Users/sxr/Projects/gb-client/build/HelloQt_autogen/include -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtCore.framework/Headers -iframework /Users/sxr/Qt/6.11.0/macos/lib -isystem /Users/sxr/Qt/6.11.0/macos/mkspecs/macx-clang -isystem /Users/sxr/Qt/6.11.0/macos/include -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtGui.framework/Headers -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtNetwork.framework/Headers -isystem /opt/homebrew/include -isystem /opt/homebrew/Cellar/ffmpeg/8.1.1/include -isystem /opt/homebrew/include/SDL2 -g -std=gnu++17 -arch arm64 -D_THREAD_SAFE -o CMakeFiles/HelloQt.dir/catalogpage.cpp.o -c /Users/sxr/Projects/gb-client/catalogpage.cpp",
+  "file": "/Users/sxr/Projects/gb-client/catalogpage.cpp",
+  "output": "/Users/sxr/Projects/gb-client/build/CMakeFiles/HelloQt.dir/catalogpage.cpp.o"
+},
+{
+  "directory": "/Users/sxr/Projects/gb-client/build",
+  "command": "/usr/bin/clang++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB -I/Users/sxr/Projects/gb-client/build/HelloQt_autogen/include -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtCore.framework/Headers -iframework /Users/sxr/Qt/6.11.0/macos/lib -isystem /Users/sxr/Qt/6.11.0/macos/mkspecs/macx-clang -isystem /Users/sxr/Qt/6.11.0/macos/include -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtGui.framework/Headers -isystem /Users/sxr/Qt/6.11.0/macos/lib/QtNetwork.framework/Headers -isystem /opt/homebrew/include -isystem /opt/homebrew/Cellar/ffmpeg/8.1.1/include -isystem /opt/homebrew/include/SDL2 -g -std=gnu++17 -arch arm64 -D_THREAD_SAFE -o CMakeFiles/HelloQt.dir/tcpclient.cpp.o -c /Users/sxr/Projects/gb-client/tcpclient.cpp",
+  "file": "/Users/sxr/Projects/gb-client/tcpclient.cpp",
+  "output": "/Users/sxr/Projects/gb-client/build/CMakeFiles/HelloQt.dir/tcpclient.cpp.o"
+}
+]

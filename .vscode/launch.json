@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug HelloQt",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/HelloQt",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "lldb",
+      "preLaunchTask": "Build HelloQt"
+    }
+  ]
+}

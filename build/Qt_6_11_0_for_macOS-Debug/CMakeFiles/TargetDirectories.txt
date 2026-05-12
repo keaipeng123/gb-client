@@ -1,0 +1,5 @@
+/Users/sxr/Projects/gb-client/build/Qt_6_11_0_for_macOS-Debug/CMakeFiles/HelloQt.dir
+/Users/sxr/Projects/gb-client/build/Qt_6_11_0_for_macOS-Debug/CMakeFiles/edit_cache.dir
+/Users/sxr/Projects/gb-client/build/Qt_6_11_0_for_macOS-Debug/CMakeFiles/rebuild_cache.dir
+/Users/sxr/Projects/gb-client/build/Qt_6_11_0_for_macOS-Debug/CMakeFiles/HelloQt_autogen_timestamp_deps.dir
+/Users/sxr/Projects/gb-client/build/Qt_6_11_0_for_macOS-Debug/CMakeFiles/HelloQt_autogen.dir

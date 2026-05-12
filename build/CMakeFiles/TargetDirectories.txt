@@ -1,0 +1,5 @@
+/Users/sxr/Projects/gb-client/build/CMakeFiles/HelloQt.dir
+/Users/sxr/Projects/gb-client/build/CMakeFiles/edit_cache.dir
+/Users/sxr/Projects/gb-client/build/CMakeFiles/rebuild_cache.dir
+/Users/sxr/Projects/gb-client/build/CMakeFiles/HelloQt_autogen_timestamp_deps.dir
+/Users/sxr/Projects/gb-client/build/CMakeFiles/HelloQt_autogen.dir

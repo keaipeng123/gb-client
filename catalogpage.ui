@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CatalogPage</class>
+ <widget class="QWidget" name="CatalogPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+        <width>980</width>
+        <height>620</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+     <string>目录页</string>
+  </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="leftMargin">
+        <number>20</number>
+     </property>
+     <property name="topMargin">
+        <number>20</number>
+     </property>
+     <property name="rightMargin">
+        <number>20</number>
+     </property>
+     <property name="bottomMargin">
+        <number>20</number>
+     </property>
+     <property name="spacing">
+        <number>16</number>
+     </property>
+     <item>
+        <layout class="QHBoxLayout" name="headerLayout">
+         <item>
+            <widget class="QLabel" name="pageTitleLabel">
+             <property name="font">
+                <font>
+                 <pointsize>15</pointsize>
+                 <bold>true</bold>
+                </font>
+             </property>
+             <property name="text">
+                <string>目录与播放区域</string>
+             </property>
+            </widget>
+         </item>
+         <item>
+            <spacer name="headerSpacer">
+             <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+             </property>
+            </spacer>
+         </item>
+        </layout>
+     </item>
+     <item>
+        <layout class="QHBoxLayout" name="contentLayout">
+         <property name="spacing">
+            <number>16</number>
+         </property>
+         <item>
+            <widget class="QFrame" name="treePanel">
+             <property name="minimumSize">
+                <size>
+                 <width>260</width>
+                 <height>0</height>
+                </size>
+             </property>
+             <property name="frameShape">
+                <enum>QFrame::Shape::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+                <enum>QFrame::Shadow::Raised</enum>
+             </property>
+             <layout class="QVBoxLayout" name="treePanelLayout">
+                <property name="leftMargin">
+                 <number>12</number>
+                </property>
+                <property name="topMargin">
+                 <number>12</number>
+                </property>
+                <property name="rightMargin">
+                 <number>12</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>12</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="treeTitleLabel">
+                    <property name="text">
+                     <string>媒体目录</string>
+                    </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QTreeWidget" name="treeWidget">
+                    <property name="alternatingRowColors">
+                     <bool>true</bool>
+                    </property>
+                    <column>
+                     <property name="text">
+                        <string>目录</string>
+                     </property>
+                    </column>
+                 </widget>
+                </item>
+             </layout>
+            </widget>
+         </item>
+         <item>
+            <widget class="QFrame" name="videoPanel">
+             <property name="frameShape">
+                <enum>QFrame::Shape::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+                <enum>QFrame::Shadow::Raised</enum>
+             </property>
+             <layout class="QVBoxLayout" name="videoPanelLayout">
+                <property name="leftMargin">
+                 <number>12</number>
+                </property>
+                <property name="topMargin">
+                 <number>12</number>
+                </property>
+                <property name="rightMargin">
+                 <number>12</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>12</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="videoTitleLabel">
+                    <property name="text">
+                     <string>播放区域</string>
+                    </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="videoLabel">
+                    <property name="minimumSize">
+                     <size>
+                        <width>640</width>
+                        <height>360</height>
+                     </size>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::Shape::Box</enum>
+                    </property>
+                    <property name="text">
+                     <string>等待播放</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="wordWrap">
+                     <bool>true</bool>
+                    </property>
+                 </widget>
+                </item>
+             </layout>
+            </widget>
+         </item>
+        </layout>
+     </item>
+    </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
