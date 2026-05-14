@@ -34,6 +34,13 @@ void TcpClient::sendMessage(const QString &message)
     }
 }
 
+void TcpClient::sendData(const QByteArray &data)
+{
+    if (socket->state() == QTcpSocket::ConnectedState) {
+        socket->write(data);
+    }
+}
+
 void TcpClient::disconnectFromServer()
 {
     socket->disconnectFromHost();

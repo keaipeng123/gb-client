@@ -14,9 +14,15 @@ extern "C" {
 #include <libswresample/swresample.h>
 }
 
+// libavformat — 封装/解封装（mp4、rtsp 等格式）
+// libavcodec — 编解码
+// libavutil — 工具函数
+// libswscale — 图像缩放/像素格式转换
+// libswresample — 音频重采样
+
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+    QApplication app(argc, argv);//初始化 Qt 框架，解析命令行参数
 
     avformat_network_init();//FFmpeg 初始化网络模块
 

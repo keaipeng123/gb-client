@@ -576,11 +576,11 @@
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 0,
-			"id" : "HelloQt_autogen::@6890427a1f51a3e7e1df"
+			"id" : "HelloQt_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
 		},
 		{
-			"id" : "HelloQt_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
+			"backtrace" : 0,
+			"id" : "HelloQt_autogen::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "HelloQt::@6890427a1f51a3e7e1df",
@@ -745,11 +745,11 @@
 	"orderDependencies" : 
 	[
 		{
-			"backtrace" : 0,
-			"id" : "HelloQt_autogen::@6890427a1f51a3e7e1df"
+			"id" : "HelloQt_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
 		},
 		{
-			"id" : "HelloQt_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
+			"backtrace" : 0,
+			"id" : "HelloQt_autogen::@6890427a1f51a3e7e1df"
 		},
 		{
 			"id" : "Qt6::moc::@6890427a1f51a3e7e1df"

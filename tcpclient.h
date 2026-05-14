@@ -14,6 +14,7 @@ public:
 
     void connectToServer(const QString &ip, quint16 port);
     void sendMessage(const QString &message);
+    void sendData(const QByteArray &data);
     void disconnectFromServer();
 
     QString lastError() const;

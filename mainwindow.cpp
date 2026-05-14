@@ -29,6 +29,10 @@ MainWindow::MainWindow(const QString &startupInfo, QWidget *parent)
     //TCP客户端信号
     connect(tcpClient, &TcpClient::connected, this, [this]() {
         catalogPage->showStatus(QStringLiteral("已连接到服务器"));
+        quint32 cmd = 1;
+        QByteArray data;
+        data.append(reinterpret_cast<const char *>(&cmd), sizeof(cmd));
+        tcpClient->sendData(data);
     });
     connect(tcpClient, &TcpClient::disconnected, this, [this]() {
         catalogPage->showStatus(QStringLiteral("与服务器连接已断开"), true);

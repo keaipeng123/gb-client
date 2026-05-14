@@ -19,7 +19,7 @@ private:
     void handleConnectRequested(const QString &ip, quint16 port);//处理 “连接服务器” 事件
 
     QStackedWidget *stack;//页面切换器
-    EntryPage *entryPage;
-    CatalogPage *catalogPage;
+    EntryPage *entryPage;//登陆页
+    CatalogPage *catalogPage;//目录页
     TcpClient *tcpClient;
 };

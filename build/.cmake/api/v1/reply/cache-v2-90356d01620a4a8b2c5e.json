@@ -39,7 +39,7 @@
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel ..."
 				}
 			],
 			"type" : "STRING",
@@ -382,8 +382,8 @@
 					"value" : "No help, variable specified on the command line."
 				}
 			],
-			"type" : "BOOL",
-			"value" : "TRUE"
+			"type" : "UNINITIALIZED",
+			"value" : "ON"
 		},
 		{
 			"name" : "CMAKE_EXTRA_GENERATOR",
@@ -1006,7 +1006,7 @@
 					"value" : "No help, variable specified on the command line."
 				}
 			],
-			"type" : "STRING",
+			"type" : "UNINITIALIZED",
 			"value" : "/Users/sxr/Qt/6.11.0/macos"
 		},
 		{
