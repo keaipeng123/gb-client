@@ -63,6 +63,14 @@ MainWindow::MainWindow(const QString &startupInfo, QWidget *parent)
     connect(tcpClient, &TcpClient::errorOccurred, this, [this](const QString &error) {
         catalogPage->showStatus(QStringLiteral("连接失败: %1").arg(error), true);
     });
+
+    // 点击"媒体目录"时刷新
+    connect(catalogPage, &CatalogPage::refreshRequested, this, [this]() {
+        quint32 cmd = 1;
+        QByteArray data;
+        data.append(reinterpret_cast<const char *>(&cmd), sizeof(cmd));
+        tcpClient->sendData(data);
+    });
 }
 
 void MainWindow::handleConnectRequested(const QString &ip, quint16 port)

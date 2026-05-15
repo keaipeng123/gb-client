@@ -1,5 +1,6 @@
 #include "catalogpage.h"
 
+#include <QHeaderView>
 #include <QLabel>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
@@ -18,7 +19,13 @@ CatalogPage::CatalogPage(QWidget *parent)
     //右边显示标签：居中、自动换行
     ui->videoLabel->setAlignment(Qt::AlignCenter);
     ui->videoLabel->setWordWrap(true);
-    //调用函数，加载目录树
+
+    connect(ui->treeWidget, &QTreeWidget::itemClicked, this, [this](QTreeWidgetItem *item, int) {
+        if (item->text(0) == QStringLiteral("媒体目录")) {
+            emit refreshRequested();
+        }
+    });
+
     populateTree();
 }
 
@@ -82,12 +89,9 @@ void CatalogPage::updateTree(const QByteArray &jsonData)
     auto *rootItem = new QTreeWidgetItem(ui->treeWidget);
     rootItem->setText(0, QStringLiteral("媒体目录"));
 
-    auto *liveGroup = new QTreeWidgetItem(rootItem);
-    liveGroup->setText(0, QStringLiteral("直播源"));
-
     for (Json::ArrayIndex i = 0; i < subDomain.size(); ++i) {
         const QString sipId = QString::fromStdString(subDomain[i]["sipId"].asString());
-        auto *item = new QTreeWidgetItem(liveGroup);
+        auto *item = new QTreeWidgetItem(rootItem);
         item->setText(0, sipId);
     }
 
@@ -96,26 +100,6 @@ void CatalogPage::updateTree(const QByteArray &jsonData)
 
 void CatalogPage::populateTree()
 {
-    //根节点：媒体目录
     auto *root = new QTreeWidgetItem(ui->treeWidget);
     root->setText(0, QStringLiteral("媒体目录"));
-
-    //一级子节点：直播源
-    auto *liveGroup = new QTreeWidgetItem(root);
-    liveGroup->setText(0, QStringLiteral("直播源"));
-
-    auto *camera1 = new QTreeWidgetItem(liveGroup);
-    camera1->setText(0, QStringLiteral("camera_01"));
-
-    auto *camera2 = new QTreeWidgetItem(liveGroup);
-    camera2->setText(0, QStringLiteral("camera_02"));
-
-    auto *historyGroup = new QTreeWidgetItem(root);
-    historyGroup->setText(0, QStringLiteral("历史记录"));
-
-    auto *sample = new QTreeWidgetItem(historyGroup);
-    sample->setText(0, QStringLiteral("sample.mp4"));
-
-    //默认展开所有节点
-    ui->treeWidget->expandAll();
 }

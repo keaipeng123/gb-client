@@ -28,9 +28,12 @@ public:
     void showStatus(const QString &status, bool isError = false);
     void updateTree(const QByteArray &jsonData);
 
+signals:
+    void refreshRequested();
+
 private:
-    void populateTree();//加载左边目录树（内部用）
+    void populateTree();
 
     Ui::CatalogPage *ui;
-    QString startupInfo_;//保存版本信息
+    QString startupInfo_;
 };
