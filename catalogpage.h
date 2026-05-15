@@ -27,13 +27,16 @@ public:
     //在播放区域显示状态信息
     void showStatus(const QString &status, bool isError = false);
     void updateTree(const QByteArray &jsonData);
+    void updateCatalogTree(const QString &sipId, const QByteArray &jsonData);
 
 signals:
     void refreshRequested();
+    void sipIdClicked(const QString &sipId);
 
 private:
     void populateTree();
 
     Ui::CatalogPage *ui;
     QString startupInfo_;
+    bool updatingTree_ = false;
 };

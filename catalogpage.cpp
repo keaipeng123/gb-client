@@ -21,7 +21,16 @@ CatalogPage::CatalogPage(QWidget *parent)
     ui->videoLabel->setWordWrap(true);
 
     connect(ui->treeWidget, &QTreeWidget::itemClicked, this, [this](QTreeWidgetItem *item, int) {
+        if (updatingTree_)
+            return;
         if (item->text(0) == QStringLiteral("媒体目录")) {
+            emit refreshRequested();
+        } else if (item->parent() && item->parent()->text(0) == QStringLiteral("媒体目录")) {
+            emit sipIdClicked(item->text(0));
+        }
+    });
+    connect(ui->treeWidget, &QTreeWidget::itemExpanded, this, [this](QTreeWidgetItem *item) {
+        if (!updatingTree_ && item->text(0) == QStringLiteral("媒体目录")) {
             emit refreshRequested();
         }
     });
@@ -84,6 +93,8 @@ void CatalogPage::updateTree(const QByteArray &jsonData)
         return;
     }
 
+    updatingTree_ = true;
+
     ui->treeWidget->clear();
 
     auto *rootItem = new QTreeWidgetItem(ui->treeWidget);
@@ -93,9 +104,100 @@ void CatalogPage::updateTree(const QByteArray &jsonData)
         const QString sipId = QString::fromStdString(subDomain[i]["sipId"].asString());
         auto *item = new QTreeWidgetItem(rootItem);
         item->setText(0, sipId);
+        item->setData(0, Qt::UserRole, sipId);
     }
 
     ui->treeWidget->expandAll();
+
+    updatingTree_ = false;
+}
+
+void CatalogPage::updateCatalogTree(const QString &sipId, const QByteArray &jsonData)
+{
+    Json::Value root;
+    Json::Reader reader;
+    if (!reader.parse(jsonData.toStdString(), root))
+        return;
+
+    const Json::Value &catalog = root["catalog"];
+    if (!catalog.isArray() || catalog.empty())
+        return;
+
+    // 找到 "媒体目录" 下的 sipId 节点
+    QTreeWidgetItem *mediaRoot = ui->treeWidget->topLevelItem(0);
+    if (!mediaRoot)
+        return;
+
+    QTreeWidgetItem *sipItem = nullptr;
+    for (int i = 0; i < mediaRoot->childCount(); ++i) {
+        if (mediaRoot->child(i)->text(0) == sipId) {
+            sipItem = mediaRoot->child(i);
+            break;
+        }
+    }
+    if (!sipItem)
+        return;
+
+    updatingTree_ = true;
+
+    // 清除 sipId 节点的旧子项
+    while (sipItem->childCount() > 0) {
+        delete sipItem->takeChild(0);
+    }
+
+    // 第一遍：创建所有节点
+    QHash<QString, QTreeWidgetItem *> itemMap;
+    QString rootDeviceId;
+    for (Json::ArrayIndex i = 0; i < catalog.size(); ++i) {
+        const auto &entry = catalog[i];
+        const QString deviceId = QString::fromStdString(entry["DeviceID"].asString());
+        const QString name     = QString::fromStdString(entry["Name"].asString());
+        const QString parentId = QString::fromStdString(entry["ParentID"].asString());
+
+        auto *item = new QTreeWidgetItem();
+        item->setText(0, name);
+        item->setData(0, Qt::UserRole, deviceId);
+        itemMap[deviceId] = item;
+
+        if (deviceId == parentId) {
+            rootDeviceId = deviceId;
+        }
+    }
+
+    // 自引用根节点挂在 sipId 下
+    QTreeWidgetItem *catalogRoot = nullptr;
+    if (!rootDeviceId.isEmpty()) {
+        catalogRoot = itemMap.value(rootDeviceId);
+    }
+    if (!catalogRoot) {
+        catalogRoot = new QTreeWidgetItem();
+        catalogRoot->setText(0, sipId);
+    }
+    sipItem->addChild(catalogRoot);
+
+    // 第二遍：非根节点根据 ParentID 挂载
+    for (Json::ArrayIndex i = 0; i < catalog.size(); ++i) {
+        const auto &entry = catalog[i];
+        const QString deviceId = QString::fromStdString(entry["DeviceID"].asString());
+        const QString parentId = QString::fromStdString(entry["ParentID"].asString());
+
+        if (deviceId == rootDeviceId)
+            continue;
+
+        auto *item = itemMap.value(deviceId);
+        if (!item || item->parent())
+            continue;
+
+        auto *parentItem = itemMap.value(parentId);
+        if (parentItem && parentItem != item) {
+            parentItem->addChild(item);
+        } else {
+            catalogRoot->addChild(item);
+        }
+    }
+
+    sipItem->setExpanded(true);
+    updatingTree_ = false;
 }
 
 void CatalogPage::populateTree()

@@ -22,4 +22,5 @@ private:
     EntryPage *entryPage;//登陆页
     CatalogPage *catalogPage;//目录页
     TcpClient *tcpClient;
+    QString currentSipId_;
 };

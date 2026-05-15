@@ -2,7 +2,10 @@
 
 #include <QStackedWidget>
 
+#include <json/json.h>
+
 #include "catalogpage.h"
+#include "commands.h"
 #include "entrypage.h"
 #include "tcpclient.h"
 
@@ -26,13 +29,20 @@ MainWindow::MainWindow(const QString &startupInfo, QWidget *parent)
     //当登录页面（entryPage）发出 "我要连接服务器（connectRequested）" 信号时 主窗口（MainWindow）就执行 "处理连接（handleConnectRequested）" 函数
     connect(entryPage, &EntryPage::connectRequested, this, &MainWindow::handleConnectRequested);
 
-    //TCP客户端信号
-    connect(tcpClient, &TcpClient::connected, this, [this]() {
-        catalogPage->showStatus(QStringLiteral("已连接到服务器"));
-        quint32 cmd = 1;
+    // 发送命令的辅助函数
+    auto sendCommand = [this](quint32 cmd, const QString &payload = {}) {
         QByteArray data;
         data.append(reinterpret_cast<const char *>(&cmd), sizeof(cmd));
+        if (!payload.isEmpty()) {
+            data.append(payload.toUtf8());
+        }
         tcpClient->sendData(data);
+    };
+
+    //TCP客户端信号
+    connect(tcpClient, &TcpClient::connected, this, [this, sendCommand]() {
+        catalogPage->showStatus(QStringLiteral("已连接到服务器"));
+        sendCommand(Command_Session_Register);
     });
     connect(tcpClient, &TcpClient::disconnected, this, [this]() {
         catalogPage->showStatus(QStringLiteral("与服务器连接已断开"), true);
@@ -41,15 +51,14 @@ MainWindow::MainWindow(const QString &startupInfo, QWidget *parent)
         catalogPage->showStatus(QStringLiteral("连接断开，正在重连..."), true);
     });
     connect(tcpClient, &TcpClient::dataReceived, this, [this](const QByteArray &data) {
-        // 解析二进制协议: [4字节bodyLen(LE)][JSON]
         if (data.size() < 4)
             return;
 
         const QByteArray jsonData = data.mid(4);
 
-        // hex dump 调试信息
+        // hex dump
         QString hexDump;
-        hexDump += QStringLiteral("==== 收到原始数据 (%1 字节) ====\n").arg(data.size());
+        hexDump += QStringLiteral("==== 收到 (%1 字节) ====\n").arg(data.size());
         hexDump += QStringLiteral("Hex: ");
         for (int i = 0; i < data.size(); ++i) {
             hexDump += QStringLiteral("%1 ").arg(static_cast<unsigned char>(data[i]), 2, 16, QLatin1Char('0'));
@@ -57,19 +66,31 @@ MainWindow::MainWindow(const QString &startupInfo, QWidget *parent)
         hexDump += QStringLiteral("\nJSON: ") + QString::fromUtf8(jsonData);
         catalogPage->showStatus(hexDump);
 
-        // 更新目录树
-        catalogPage->updateTree(jsonData);
+        // 根据响应类型分发
+        Json::Value root;
+        Json::Reader reader;
+        if (!reader.parse(jsonData.toStdString(), root))
+            return;
+
+        if (root.isMember("subDomain")) {
+            catalogPage->updateTree(jsonData);
+        } else if (root.isMember("catalog")) {
+            catalogPage->updateCatalogTree(currentSipId_, jsonData);
+        }
     });
     connect(tcpClient, &TcpClient::errorOccurred, this, [this](const QString &error) {
         catalogPage->showStatus(QStringLiteral("连接失败: %1").arg(error), true);
     });
 
-    // 点击"媒体目录"时刷新
-    connect(catalogPage, &CatalogPage::refreshRequested, this, [this]() {
-        quint32 cmd = 1;
-        QByteArray data;
-        data.append(reinterpret_cast<const char *>(&cmd), sizeof(cmd));
-        tcpClient->sendData(data);
+    // 点击"媒体目录" → 刷新设备列表
+    connect(catalogPage, &CatalogPage::refreshRequested, this, [this, sendCommand]() {
+        sendCommand(Command_Session_Register);
+    });
+
+    // 点击 sipId 节点 → 获取目录
+    connect(catalogPage, &CatalogPage::sipIdClicked, this, [this, sendCommand](const QString &sipId) {
+        currentSipId_ = sipId;
+        sendCommand(Command_Session_Catalog, sipId);
     });
 }
 
