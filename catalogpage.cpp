@@ -4,6 +4,8 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 
+#include <json/json.h>
+
 #include "ui_catalogpage.h"
 
 CatalogPage::CatalogPage(QWidget *parent)
@@ -60,6 +62,36 @@ void CatalogPage::showStatus(const QString &status, bool isError)
         ui->videoLabel->setStyleSheet(QStringLiteral("color: green;"));
     }
     ui->videoLabel->setText(status);
+}
+
+void CatalogPage::updateTree(const QByteArray &jsonData)
+{
+    Json::Value root;
+    Json::Reader reader;
+    if (!reader.parse(jsonData.toStdString(), root)) {
+        return;
+    }
+
+    const Json::Value &subDomain = root["subDomain"];
+    if (!subDomain.isArray()) {
+        return;
+    }
+
+    ui->treeWidget->clear();
+
+    auto *rootItem = new QTreeWidgetItem(ui->treeWidget);
+    rootItem->setText(0, QStringLiteral("媒体目录"));
+
+    auto *liveGroup = new QTreeWidgetItem(rootItem);
+    liveGroup->setText(0, QStringLiteral("直播源"));
+
+    for (Json::ArrayIndex i = 0; i < subDomain.size(); ++i) {
+        const QString sipId = QString::fromStdString(subDomain[i]["sipId"].asString());
+        auto *item = new QTreeWidgetItem(liveGroup);
+        item->setText(0, sipId);
+    }
+
+    ui->treeWidget->expandAll();
 }
 
 void CatalogPage::populateTree()

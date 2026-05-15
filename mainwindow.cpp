@@ -37,8 +37,28 @@ MainWindow::MainWindow(const QString &startupInfo, QWidget *parent)
     connect(tcpClient, &TcpClient::disconnected, this, [this]() {
         catalogPage->showStatus(QStringLiteral("与服务器连接已断开"), true);
     });
-    connect(tcpClient, &TcpClient::messageReceived, this, [this](const QString &message) {
-        catalogPage->showStatus(QStringLiteral("收到消息: %1").arg(message));
+    connect(tcpClient, &TcpClient::reconnecting, this, [this]() {
+        catalogPage->showStatus(QStringLiteral("连接断开，正在重连..."), true);
+    });
+    connect(tcpClient, &TcpClient::dataReceived, this, [this](const QByteArray &data) {
+        // 解析二进制协议: [4字节bodyLen(LE)][JSON]
+        if (data.size() < 4)
+            return;
+
+        const QByteArray jsonData = data.mid(4);
+
+        // hex dump 调试信息
+        QString hexDump;
+        hexDump += QStringLiteral("==== 收到原始数据 (%1 字节) ====\n").arg(data.size());
+        hexDump += QStringLiteral("Hex: ");
+        for (int i = 0; i < data.size(); ++i) {
+            hexDump += QStringLiteral("%1 ").arg(static_cast<unsigned char>(data[i]), 2, 16, QLatin1Char('0'));
+        }
+        hexDump += QStringLiteral("\nJSON: ") + QString::fromUtf8(jsonData);
+        catalogPage->showStatus(hexDump);
+
+        // 更新目录树
+        catalogPage->updateTree(jsonData);
     });
     connect(tcpClient, &TcpClient::errorOccurred, this, [this](const QString &error) {
         catalogPage->showStatus(QStringLiteral("连接失败: %1").arg(error), true);

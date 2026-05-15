@@ -26,6 +26,7 @@ public:
     QLabel *videoLabel() const;
     //在播放区域显示状态信息
     void showStatus(const QString &status, bool isError = false);
+    void updateTree(const QByteArray &jsonData);
 
 private:
     void populateTree();//加载左边目录树（内部用）
