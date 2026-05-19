@@ -22,5 +22,5 @@ private:
     EntryPage *entryPage;//登陆页
     CatalogPage *catalogPage;//目录页
     TcpClient *tcpClient;
-    QString currentSipId_;
+    QString currentSipId_;//记录当前用户选中的设备ID
 };

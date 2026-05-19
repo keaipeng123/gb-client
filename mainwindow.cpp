@@ -5,7 +5,7 @@
 #include <json/json.h>
 
 #include "catalogpage.h"
-#include "commands.h"
+#include "sipdef.h"
 #include "entrypage.h"
 #include "tcpclient.h"
 
@@ -30,11 +30,15 @@ MainWindow::MainWindow(const QString &startupInfo, QWidget *parent)
     connect(entryPage, &EntryPage::connectRequested, this, &MainWindow::handleConnectRequested);
 
     // 发送命令的辅助函数
+    // 协议格式: [4字节 cmd] [4字节 payload长度] [payload字节]
     auto sendCommand = [this](quint32 cmd, const QString &payload = {}) {
         QByteArray data;
         data.append(reinterpret_cast<const char *>(&cmd), sizeof(cmd));
-        if (!payload.isEmpty()) {
-            data.append(payload.toUtf8());
+        const QByteArray payloadBytes = payload.toUtf8();
+        const quint32 payloadLen = static_cast<quint32>(payloadBytes.size());
+        data.append(reinterpret_cast<const char *>(&payloadLen), sizeof(payloadLen));
+        if (!payloadBytes.isEmpty()) {
+            data.append(payloadBytes);
         }
         tcpClient->sendData(data);
     };
@@ -91,6 +95,12 @@ MainWindow::MainWindow(const QString &startupInfo, QWidget *parent)
     connect(catalogPage, &CatalogPage::sipIdClicked, this, [this, sendCommand](const QString &sipId) {
         currentSipId_ = sipId;
         sendCommand(Command_Session_Catalog, sipId);
+    });
+
+    // 点击摄像头节点 → 请求开流播放
+    connect(catalogPage, &CatalogPage::playRequested, this, [this, sendCommand](const QString &sipId, const QString &deviceId) {
+        currentSipId_ = sipId;
+        sendCommand(Command_Session_RealPlay, deviceId);
     });
 }
 

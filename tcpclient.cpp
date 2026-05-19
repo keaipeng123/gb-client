@@ -6,9 +6,9 @@
 TcpClient::TcpClient(QObject *parent)
     : QObject(parent)
     , socket(new QTcpSocket(this))
-    , reconnectTimer(new QTimer(this))
+    , reconnectTimer(new QTimer(this))//创建一个定时器，它倒计时结束后会发出 timeout() 信号
 {
-    reconnectTimer->setSingleShot(true);
+    reconnectTimer->setSingleShot(true);//设置为"单发"模式。意思是定时器触发一次后就停止，不会循环触发。每次断线后只重连一次，如果又失败，errorOccurred 里会再次启动它
     connect(reconnectTimer, &QTimer::timeout, this, [this]() {
         reconnecting_ = true;
         socket->connectToHost(serverIp_, serverPort_);
